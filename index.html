@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+
+    <!--
+    BeaqleJS - HTML5 and JavaScript framework for listening tests, <https://github.com/HSU-ANT/beaqlejs>
+
+    This file and all corresponding parts of BeaqleJS are published under the GPLv3 license, <http://www.gnu.org/licenses/>    
+    -->
+
+
+    <title>SS Evaluation</title>
+    
+    <!-- load the test config file -->
+        <script src="config/javorial.js" type="text/javascript"></script>
+    <!---->
+    
+    <link type="text/css" href="css/smoothness/jquery-ui-1.8.18.custom.css" rel="Stylesheet" />
+    <link type="text/css" href="css/styles.css" rel="Stylesheet" />
+
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.custom.min.js" type="text/javascript" ></script>
+    <script src="js/beaqle.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+    /* <![CDATA[ */
+        var testHandle;
+        window.onload=function() {
+
+            // Uncomment one of the following lines to choose the desired test class
+
+            testHandle = new MushraTest(JavorialConfig);    // <-- MUSHRA test class
+            //testHandle = new AbxTest(JavorialConfig);     // <-- ABX test class
+
+            $('#Footer').prepend(testHandle.browserFeatureString() + '<br/>');
+        };
+    /* ]]> */
+    </script>
+   
+</head>
+
+<body>
+
+<div id="Wrapper">
+
+    <div id="TestTitle" class="commonBox">
+        <!-- overall title at the top 
+             DO NOT EDIT! This box is automatically filled with content!
+        -->
+        Loading...
+    </div>
+    
+    <!-- is displayed during load -->
+    <div id="LoadOverlay" class="commonBox">
+        <img src="img/ajax-loader.gif"/> &nbsp;&nbsp;&nbsp; Loading...
+    </div>
+
+    <!-- introduction before the test starts -->
+    <div id="TestIntroduction" class="commonBox">
+        
+        <!-- edit here if you want to change the welcome message  and instructions -->
+
+        <div style="text-align:left">
+            <strong>Welcome!</strong>
+            <br />
+            Thanks for participating in my listening test! The resulting data will aid in my evaluation of an artificial speech synthesiser built on my voice.
+            <br />
+            The overall test will take roughly <strong>10 minutes</strong>. Please take the time and carefully rate every item.
+            <br />
+            <br />
+            <strong>IMPORTANT:</strong> Please do NOT do this test without ear-/headphones! It would be <u>counterproductive</u> and degrade the quality of my results. The same holds true for rushing through the test.
+            <br />
+            <br />
+            <strong>Instructions:</strong>
+            <ul>
+                <li>Listen through each test sample and give a rating based on <strong>how natural it sounds</strong>.</li>
+                <li>There are 3 hypotheses being tested, each containing 6 sentences, for a total of 18 tests.</li>
+                <li>Ratings are on a precise numerical scale, where <strong>0</strong> sounds like two cats fighting and where <strong>100</strong> represents true natural speech.</li>
+            </ul>
+        </div>
+
+        <!-- this button starts the first test -->
+        <button id="BtnStartTest" onclick="testHandle.startTests();">Start test!</button>
+
+        <br />
+
+        <div class="SSExtraInfo" style="text-align:left;">
+            <strong>What is Speech Synthesis?</strong>
+            <br />
+            Speech synthesis is the artificial production of human speech. A computer system used for this purpose is called a speech synthesizer. A text-to-speech (TTS) system, like the one evaluated here, converts normal language text into speech.
+            <br />
+            <br/>
+            <strong>How does it work?</strong>
+            <br />
+            This system uses a method known as unit selection. Unit selection synthesis uses large databases of recorded speech. During database creation, each recorded utterance is segmented into some or all of the following: individual phones, diphones, half-phones, syllables, morphemes, words, phrases, and sentences. Typically, the division into segments is done using a specially modified automatic speech recognition system set to a "forced alignment" mode with some manual correction afterward. An index of the units in the speech database is then created based on the segmentation and acoustic parameters like the fundamental frequency (pitch), duration, position in the syllable, and neighboring phones. At run time, the desired target utterance is created by determining the best chain of candidate units from the database (unit selection). This process is typically achieved using a specially weighted decision tree.
+            Unit selection provides the greatest naturalness, because it applies only a small amount of digital signal processing (DSP) to the recorded speech. <a style="color:blue" href="https://en.wikipedia.org/wiki/Speech_synthesis">(source)</a>
+            <br />
+            <br />
+            <strong>NOTE:</strong> The sentences selected for this test are quite hard, and this specific system was built with only a few hours of recording material over the course of two and a half months. In other words, don't expect the same quality as Siri/Google Now/Amazon Echo, which have been under development for years and use thousands of hours of (professional) recording material.
+        </div>
+    </div>
+
+    <!-- final text after all tests have passed -->
+    <div id="TestEnd" class="commonBox">
+
+        <!-- edit here if you want to change the thank you message -->
+        Thank you very much! (I'll remember your contribution when I change the world!)
+        <br />
+        <strong>Don't forget to press Submit before closing this window!</strong>
+        <br />
+        <br />
+        <!-- show some informations before submitting the results -->
+        <div id="SubmitBox">
+            <div id="SubmitError" class="error">
+                We are sorry, but the following error occurred during your submission (please let me know!!):
+                <p id="ErrorCode"></p>
+            </div>
+            <p class="submitOnline">
+                <!-- edit here if you want to change the information about online submission, e.g. add privacy policy information -->
+                Entering a name or email address is not mandatory but it would help me to contact you if I have further questions. You can also leave a (nice) comment.
+            </p>
+            <p class="submitDownload">
+                <!-- edit here if you want to change the information about online submission, e.g. add privacy policy information -->
+                Please download and save the results. Entering a name or email address is not mandatory 
+                but it would help us to contact you if we have further questions. You can also leave a (nice) comment.
+            </p>
+            <table border=0 style="margin-left: auto;margin-right: auto;">
+            <tr><td>Name:</td><td><input id="UserName" type="text" size="40" maxlength="40" /></td></tr>
+            <tr><td>Email:</td><td><input id="UserEMail" type="text" size="40" maxlength="40" /></td></tr>
+            <tr><td></td><td><textarea id="UserComment" cols="40" rows="4" placeholder="Your comment..."></textarea></td></tr>
+            </table>
+            <br />
+            <button id="BtnSubmitData" class="submitOnline" onclick="testHandle.SubmitTestResults();">Submit</button>
+            <button id="BtnDownloadData" class="submitDownload" onclick="testHandle.DownloadTestResults();">Download</button>
+            <p class="submitEmail error">
+                <!-- edit here if you want to change the information about email submission, e.g. add privacy policy information -->
+                Results should be sent to <span class="supervisorEmail"></span>
+            </p>
+        </div>
+        
+        <!-- the test results are displayed in this box -->
+        <div id="ResultsBox">
+        </div>
+    </div>
+
+    <div id="TableContainer" class="commonBox">
+        <!-- container for the test items and sliders 
+             DO NOT EDIT! This box is automatically filled with content!
+        -->    
+
+        <!-- heading for the single test -->
+        <div id="TestHeading">
+        </div>
+    
+    </div>
+
+    <!-- controls to go to next/previous test -->
+    <div id="TestControls" class="commonBox">
+        <button id="BtnNextTest">Next Test</button>
+        <button id="BtnPrevTest">Previous Test</button>
+    </div>
+
+    <!-- playback control -->
+    <div id="PlayerControls" class="commonBox">
+
+        <div id="duration">
+            <span>00:00</span>
+        </div>
+        
+        <div id="TimeLine">
+            <div id="ProgressBar"></div>
+            <div id="ABRange"></div>
+        </div>
+        
+        <div>
+            <input id="ChkLoopAudio" type="checkbox" value="Loop" /><label for="BtnLoopAudio">Loop</label>				
+        </div>
+        
+        <div id="Volume">
+            Volume
+            <div id="VolumeSlider"></div>
+        </div>
+        
+        <br style="clear:both"/>
+    
+    </div>
+
+    <!-- Footer -->
+    <div id="Footer">
+        Your test responses will be recorded anonymously and only used in the context of academic research. This test was made using BeagleJS.
+    </div>
+</div>
+
+</body>
+
+</html>
